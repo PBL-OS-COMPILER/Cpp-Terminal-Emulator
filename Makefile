@@ -11,3 +11,8 @@ terminal: main.cpp
 
 clean:
 	rm -f terminal *.o
+
+terminal: main.cpp
+	$(CXX) $(CXXFLAGS) -o terminal main.cpp -lreadline
+
+

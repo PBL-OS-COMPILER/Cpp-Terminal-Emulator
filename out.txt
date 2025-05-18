@@ -1,0 +1,8 @@
+builtins.h
+executor.h
+history.h
+main.cpp
+Makefile
+out.txt
+parser.h
+terminal

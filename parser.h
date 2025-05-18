@@ -23,3 +23,33 @@ vector<string> parseCommand(const string &input, bool &background, string &input
 }
 
 #endif
+
+#include <iostream>
+
+using namespace std;
+
+vector<vector<string>> parsePipelinedCommand(const string &input, bool &background) {
+    vector<vector<string>> pipedCommands;
+    background = false;
+    string trimmedInput = input;
+    if (!trimmedInput.empty() && trimmedInput.back() == '&') {
+        background = true;
+        trimmedInput.pop_back();
+    }
+
+    istringstream pipeStream(trimmedInput);
+    string segment;
+    while (getline(pipeStream, segment, '|')) {
+        istringstream iss(segment);
+        vector<string> args;
+        string token;
+        while (iss >> token) {
+            args.push_back(token);
+        }
+        if (!args.empty()) pipedCommands.push_back(args);
+    }
+    return pipedCommands;
+}
+
+#endif
+

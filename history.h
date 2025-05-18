@@ -89,6 +89,42 @@ string readInputWithHistory(HistoryManager &history) {
         }
     }
     return input;
+#include <vector>
+#include <string>
+#include <fstream>
+#include <iostream>
+
+using namespace std;
+
+const string HISTORY_FILE = ".mysh_history";
+vector<string> history;
+
+void loadHistory() {
+    ifstream infile(HISTORY_FILE);
+    string line;
+    while (getline(infile, line)) {
+        history.push_back(line);
+    }
+    infile.close();
+}
+
+void saveHistory() {
+    ofstream outfile(HISTORY_FILE);
+    for (const string &cmd : history) {
+        outfile << cmd << endl;
+    }
+    outfile.close();
+}
+
+void addToHistory(const string &cmd) {
+    if (!cmd.empty()) history.push_back(cmd);
+}
+
+void showHistory() {
+    int index = 1;
+    for (const string &cmd : history) {
+        cout << index++ << "  " << cmd << endl;
+    }
 }
 
 #endif
